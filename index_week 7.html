@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        .success {
+            color: #2ecc71;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 12px;
+            background-color: #34495e;
+        }
+        #interactive-box {
+            width: 150px;
+            height: 150px;
+            background-color: #9b59b6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+        }
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        .dark-mode .container {
+            border-color: #444;
+        }
+        .dark-mode input, .dark-mode textarea, .dark-mode select {
+            background-color: #333;
+            color: #f0f0f0;
+            border-color: #555;
+        }
+        .dark-mode h1, .dark-mode h2 {
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <button id="theme-toggle">Toggle Dark Mode</button>
+    
+    <div class="container">
+        <h1>JavaScript Concepts Demo</h1>
+        <p>This page demonstrates event listeners, form validation, and interactive elements.</p>
+    </div>
+
+    <div class="container">
+        <h2>1. Event Listeners</h2>
+        <p>Click the button below to see event listeners in action:</p>
+        <button id="click-me">Click Me!</button>
+        <p id="click-counter">Button clicked 0 times</p>
+        
+        <div id="interactive-box">Hover Over Me!</div>
+        
+        <p>Type in the input field:</p>
+        <input type="text" id="text-input" placeholder="Type something...">
+        <p id="input-display"></p>
+    </div>
+
+    <div class="container">
+        <h2>2. Form Validation</h2>
+        <form id="demo-form">
+            <label for="name">Name (required):</label>
+            <input type="text" id="name" name="name">
+            <div id="name-error" class="error"></div>
+            
+            <label for="email">Email (required, must be valid):</label>
+            <input type="email" id="email" name="email">
+            <div id="email-error" class="error"></div>
+            
+            <label for="password">Password (min 8 characters):</label>
+            <input type="password" id="password" name="password">
+            <div id="password-error" class="error"></div>
+            
+            <label for="age">Age (must be 18+):</label>
+            <input type="number" id="age" name="age" min="0">
+            <div id="age-error" class="error"></div>
+            
+            <label for="bio">Bio (max 200 characters):</label>
+            <textarea id="bio" name="bio" rows="4"></textarea>
+            <div id="bio-error" class="error"></div>
+            
+            <button type="submit">Submit Form</button>
+            <div id="form-success" class="success"></div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>3. Interactive Elements</h2>
+        <p>Click the buttons to change the content:</p>
+        <div id="content-box" style="padding: 20px; background-color: #f0f0f0; margin-bottom: 15px;">
+            This content will change when you click the buttons below.
+        </div>
+        <button id="change-content-1">Show Content 1</button>
+        <button id="change-content-2">Show Content 2</button>
+        <button id="change-content-3">Show Content 3</button>
+    </div>
+
+    <script>
+        // 1. Event Listeners Demo
+        const clickMeButton = document.getElementById('click-me');
+        const clickCounter = document.getElementById('click-counter');
+        const interactiveBox = document.getElementById('interactive-box');
+        const textInput = document.getElementById('text-input');
+        const inputDisplay = document.getElementById('input-display');
+        
+        let clickCount = 0;
+        
+        // Click event listener
+        clickMeButton.addEventListener('click', () => {
+            clickCount++;
+            clickCounter.textContent = `Button clicked ${clickCount} time${clickCount !== 1 ? 's' : ''}`;
+            
+            // Change button color temporarily
+            clickMeButton.style.backgroundColor = '#27ae60';
+            setTimeout(() => {
+                clickMeButton.style.backgroundColor = '#3498db';
+            }, 200);
+        });
+        
+        // Mouse events for the interactive box
+        interactiveBox.addEventListener('mouseover', () => {
+            interactiveBox.textContent = 'Mouse Over!';
+            interactiveBox.style.backgroundColor = '#e74c3c';
+            interactiveBox.style.transform = 'scale(1.1)';
+        });
+        
+        interactiveBox.addEventListener('mouseout', () => {
+            interactiveBox.textContent = 'Hover Over Me!';
+            interactiveBox.style.backgroundColor = '#9b59b6';
+            interactiveBox.style.transform = 'scale(1)';
+        });
+        
+        interactiveBox.addEventListener('click', () => {
+            interactiveBox.textContent = 'Clicked!';
+            interactiveBox.style.backgroundColor = '#f39c12';
+        });
+        
+        // Input event listener
+        textInput.addEventListener('input', (e) => {
+            inputDisplay.textContent = `You typed: ${e.target.value}`;
+        });
+
+        // 2. Form Validation
+        const demoForm = document.getElementById('demo-form');
+        
+        demoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Reset previous errors and success messages
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            document.getElementById('form-success').textContent = '';
+            
+            // Validate fields
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const age = parseInt(document.getElementById('age').value);
+            const bio = document.getElementById('bio').value;
+            
+            let isValid = true;
+            
+            // Name validation
+            if (!name) {
+                document.getElementById('name-error').textContent = 'Name is required';
+                isValid = false;
+            }
+            
+            // Email validation
+            if (!email) {
+                document.getElementById('email-error').textContent = 'Email is required';
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email';
+                isValid = false;
+            }
+            
+            // Password validation
+            if (password.length < 8) {
+                document.getElementById('password-error').textContent = 'Password must be at least 8 characters';
+                isValid = false;
+            }
+            
+            // Age validation
+            if (isNaN(age) || age < 18) {
+                document.getElementById('age-error').textContent = 'You must be 18 or older';
+                isValid = false;
+            }
+            
+            // Bio validation
+            if (bio.length > 200) {
+                document.getElementById('bio-error').textContent = 'Bio must be 200 characters or less';
+                isValid = false;
+            }
+            
+            // If form is valid
+            if (isValid) {
+                document.getElementById('form-success').textContent = 'Form submitted successfully!';
+                // In a real app, you would submit the form data to a server here
+                console.log('Form data:', { name, email, password, age, bio });
+            }
+        });
+        
+        // Real-time validation for bio character count
+        const bioField = document.getElementById('bio');
+        const bioError = document.getElementById('bio-error');
+        
+        bioField.addEventListener('input', () => {
+            const remaining = 200 - bioField.value.length;
+            if (remaining < 0) {
+                bioError.textContent = `Bio must be 200 characters or less (${Math.abs(remaining)} over)`;
+            } else if (remaining < 50) {
+                bioError.textContent = `${remaining} characters remaining`;
+            } else {
+                bioError.textContent = '';
+            }
+        });
+
+        // 3. Interactive Elements
+        const contentBox = document.getElementById('content-box');
+        const contentButtons = [
+            document.getElementById('change-content-1'),
+            document.getElementById('change-content-2'),
+            document.getElementById('change-content-3')
+        ];
+        
+        const contents = [
+            "This is the first content. JavaScript makes web pages interactive!",
+            "Second content here. You can change page content dynamically.",
+            "Third content block. Event listeners make this possible."
+        ];
+        
+        contentButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                contentBox.textContent = contents[index];
+                contentBox.style.backgroundColor = getRandomLightColor();
+            });
+        });
+        
+        function getRandomLightColor() {
+            const hue = Math.floor(Math.random() * 360);
+            return `hsl(${hue}, 80%, 90%)`;
+        }
+
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggle.textContent = document.body.classList.contains('dark-mode') 
+                ? 'Toggle Light Mode' 
+                : 'Toggle Dark Mode';
+        });
+    </script>
+</body>
+</html>
